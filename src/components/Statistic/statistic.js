@@ -9,14 +9,12 @@ export default function Statistic() {
       
       <ul className="stat-list">
         
-        {data.map(({ id, label, percentage }) => {
-        return (
-    <li className="item" key={id}>
+        {data.map(({ id, label, percentage }) => 
+         (<li className="item" key={id}>
           <span className="label">{label}</span>
           <span className="percentage">{percentage}</span>
-    </li>
-  )
-})}
+    </li>)
+)}
         
    
   </ul>
