@@ -1,9 +1,10 @@
 .statistics {
-    border: 2px solid black;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 300px;
+   
     
 }
 
@@ -14,12 +15,14 @@ li {
 
 
 .statlist {
-    border: 2px solid black;
+    
     display: flex;
+   margin: auto;
      padding: 0px;
     margin-bottom: 0px;
     margin-top: 0px;
     width: 300px;
+    
     
 }
 
@@ -27,6 +30,8 @@ li {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
+    
+   
     
 }
 .item:not(:last-child) {

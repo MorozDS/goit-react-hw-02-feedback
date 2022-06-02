@@ -1,9 +1,10 @@
-import items from "./transactions.json"
 
-export default function TransactionHistory() {
+import s from "./transactionhistory.module.css"
+
+export default function TransactionHistory({items}) {
 
     return (
-        <table className="transaction-history">
+        <table className={s.transactionHistory}>
   <thead>
     <tr>
       <th>Type</th>
