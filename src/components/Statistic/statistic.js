@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+
 import s from "./statistic.module.css"
 
 
