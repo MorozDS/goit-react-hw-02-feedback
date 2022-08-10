@@ -1,74 +1,70 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions';
 import Statistics from './Statistics/Statistic';
 import Notification from './Notification/Notification';
 import Section from './Section/Section';
 
-export default class App extends Component {
-  state = {
+const App = () => {
+  const [feedback, setFeedback] = useState({
     good: 0,
     neutral: 0,
     bad: 0,
-  };
+  });
 
-  getKeys = () => Object.keys(this.state);
+  const getKeys = () => Object.keys(feedback);
 
-  countTotalFeedback = () =>
-    this.state.good + this.state.neutral + this.state.bad;
+  const countTotalFeedback = () =>
+    feedback.good + feedback.neutral + feedback.bad;
 
-  countPositiveFeedbackPercentage = () => {
-    if (!this.state.good && !this.state.neutral && !this.state.bad) return 0;
+  const countPositiveFeedbackPercentage = () => {
+    if (!feedback.good && !feedback.neutral && !feedback.bad) return 0;
     else {
       return Math.round(
-        (this.state.good /
-          (this.state.good + this.state.neutral + this.state.bad)) *
+        (feedback.good / (feedback.good + feedback.neutral + feedback.bad)) *
           100
       );
     }
   };
 
-  handleClick = event => {
+  const handleClick = event => {
     const { name } = event.target;
-    this.setState(prevState => ({
+    setFeedback(prevState => ({
       [name]: prevState[name] + 1,
     }));
   };
 
-  render() {
-    return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 20,
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
-        <h1 className="main__header">Expresso Cafe Feedback Page</h1>
-        <Section title="Please Leave Feedback">
-          <FeedbackOptions
-            options={this.getKeys()}
-            onLeaveFeedback={this.handleClick}
+  return (
+    <div
+      style={{
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 40,
+        color: '#010101',
+      }}
+    >
+      <h1 className="main__header">Expresso Cafe Feedback Page</h1>
+      <Section title="Please Leave Feedback">
+        <FeedbackOptions options={getKeys()} onLeaveFeedback={handleClick} />
+      </Section>
+      <Section title="Statistics">
+        {countTotalFeedback() ? (
+          <Statistics
+            good={feedback.good}
+            neutral={feedback.neutral}
+            bad={feedback.bad}
+            total={countTotalFeedback()}
+            positivePercentage={countPositiveFeedbackPercentage()}
           />
-        </Section>
-        <Section title="Statistics">
-          {this.countTotalFeedback() ? (
-            <Statistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
-              total={this.countTotalFeedback()}
-              positivePercentage={this.countPositiveFeedbackPercentage()}
-            />
-          ) : (
-            <Notification message="There is no feedback" />
-          )}
-        </Section>
-      </div>
-    );
-  }
-}
+        ) : (
+          <Notification message="There is no feedback" />
+        )}
+      </Section>
+    </div>
+  );
+};
+
+export default App;
